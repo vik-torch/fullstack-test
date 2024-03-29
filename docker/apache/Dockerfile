@@ -25,6 +25,12 @@ RUN docker-php-ext-install \
     pdo_mysql \
     mysqli
 
+# 1.1 setup Xdebug
+RUN pecl install xdebug-3.1.5 \
+    && docker-php-ext-enable xdebug
+COPY docker/apache/conf.d/* $PHP_INI_DIR/conf.d
+
+
 # 2. set up document root for apache
 COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
