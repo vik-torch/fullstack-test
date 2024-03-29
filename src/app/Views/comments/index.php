@@ -29,8 +29,9 @@
     <div class="container mt-3">
         <h1 class="mb-4">Comment Page</h1>
 
+
         <!-- Sort -->
-        <div id="comments_sort">
+        <div id="comments_sort" class="d-none">
             <div class="dropdown d-flex justify-content-end">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Выберите сортировку
@@ -46,6 +47,7 @@
         <!-- Sort End -->
 
         <div id="comments_list" class="comments_list__wr my-5"></div>
+        <h3 class="empty_list_msg d-none my-5">Комментариев пока что нет, будьте первым!</h3>
 
         <!-- Pagination -->
         <nav id="comment_pagination" aria-label="Page navigation example">
@@ -54,6 +56,8 @@
         </nav>
         <!-- Pagination End -->
 
+
+        
         <!-- Comment form -->
         <div class="comments_form__wr my-4">
             <h3 class="mb-4">Оставить коментарий</h3>

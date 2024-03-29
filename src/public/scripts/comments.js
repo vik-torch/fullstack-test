@@ -129,6 +129,8 @@ class Comments
         this.pagination = new Pagination();
         this.sort = new SortComments();
 
+        this.$empty_list_msg = $('.empty_list_msg');
+
         this.$place = $('#comments_list');
     }
 
@@ -139,14 +141,19 @@ class Comments
 
     build(data)
     {
+        this.pagination.update(data.currentPage, data.pageCount);
+
+        if(data.pageCount == 0) {
+            this.hide();
+            return;
+        }
+
         data.comments.forEach(element => {
             let comment = new Comment(element);
-
             this.$place.append(comment.getContent());
-
         });
-        
-        this.pagination.update(data.currentPage, data.pageCount);
+
+        this.show();
 
         $('#comments_list .delete_btn').one('click', this.deleteComment.bind(this));
     }
@@ -161,6 +168,28 @@ class Comments
     getSortParams()
     {
         return this.sort.getParams();
+    }
+
+    show()
+    {
+        this.sort.show();
+        this.hideEmptyListMessage();
+    }
+
+    hide()
+    {
+        this.sort.hide();
+        this.showEmptyListMessage();
+    }
+
+    showEmptyListMessage()
+    {
+        this.$empty_list_msg.removeClass('d-none');
+    }
+
+    hideEmptyListMessage()
+    {
+        this.$empty_list_msg.addClass('d-none');
     }
 }
 
@@ -212,7 +241,6 @@ class Pagination
     {
         if(this.total > 1) {
             this.show();
-            $();
         } else {
             this.hide();
         }
@@ -331,6 +359,16 @@ class SortComments
             target_field: this.target_field,
             sort_method: this.sort_method
         }
+    }
+
+    hide()
+    {
+        this.$place.addClass('d-none');
+    }
+
+    show()
+    {
+        this.$place.removeClass('d-none');
     }
 }
 
