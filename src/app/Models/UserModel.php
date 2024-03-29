@@ -26,4 +26,23 @@ class UserModel extends Model
         ],
     ];
 
+    /**
+     * Вернуть id первого найденного или созданного пользователя.
+     *
+     * @param array $email email пользователя
+     * @return integer id пользователя
+     */
+    public function firstOrCreateByEmail(string $email): int
+    {
+        $user = $this->where('email', $email)->first();
+        if (false == isset($user)) {
+            $userData = [
+                'email' => $email
+            ];
+
+            return $this->insert($userData);
+        }
+
+        return $user['id'];
+    }
 }
